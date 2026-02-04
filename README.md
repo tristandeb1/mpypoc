@@ -8,8 +8,6 @@ This repository aims at experimenting with a C++ project depending on MPI, using
 Getting Started
 ---------------
 
-# Using C++ only
-
 ~~~ bash
 cmake -S . -B build -DMPI_CXX_COMPILER=mpicxx
 cmake --build build
@@ -17,10 +15,3 @@ cmake --install build --prefix install
 mpiexec -n 4 install/bin/mpypoc
 ~~~
 
-
-# Using Python
-
-~~~ bash
-python -m pip install .
-python -m mpypoc -n 4
-~~~
