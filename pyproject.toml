@@ -14,9 +14,6 @@ urls.source = "https://github.com/tristandeb1/mpypoc"
 requires-python = ">=3.8"
 dependencies = ["openmpi"]
 
-[project.optional-dependencies]
-dev = ["mpi4py>=3.1"]
-
 [tool.scikit-build]
 sdist.exclude = [".*"]
 wheel.py-api = "py3"
