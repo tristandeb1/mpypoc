@@ -23,6 +23,4 @@ mpiexec -n 4 install/bin/mpypoc
 ~~~ bash
 python -m pip install .
 python -m mpypoc -n 4
-# or
-mpypocscript -n 4 --mpi-args --bind-to core
 ~~~

@@ -21,9 +21,6 @@ dependencies = ["importlib_resources>=5 ; python_version<'3.9'"]
 [project.optional-dependencies]
 dev = ["mpi4py>=3.1"]
 
-[project.scripts]
-mpypocscript = "mpypoc.__main__:cli"
-
 [project.urls]
 Source = "https://github.com/tristandeb1/mpypoc"
 
