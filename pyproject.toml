@@ -13,7 +13,8 @@ name = "mpypoc"
 version = "0.1.0"
 description = "Minimal C++ MPI program packaged for Python using CMake & scikit-build-core."
 readme = "README.md"
-license = {text = "Unlicense"}
+license = "Unlicense"
+license-files = ["LICENSE"]
 authors = [{name = "tristandeb1"}]
 requires-python = ">=3.8"
 dependencies = ["importlib_resources>=5 ; python_version<'3.9'"]
@@ -39,7 +40,6 @@ sdist.include = [
     "MANIFEST.in",
     "pyproject.toml"
 ]
-wheel.license-files = ["LICENSE"]
 wheel.packages = ["python/mpypoc"]
 wheel.expand-macos-universal-tags = true
 build-dir = "build/{wheel_tag}"
