@@ -1,0 +1,48 @@
+[build-system]
+requires = [
+    "scikit-build-core>=0.9",
+    "cmake>=3.26",
+    "ninja>=1.10",
+    "setuptools>=68",
+    "wheel"
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "mpypoc"
+version = "0.1.0"
+description = "Minimal C++ MPI program packaged for Python using CMake & scikit-build-core."
+readme = "README.md"
+license = {text = "Unlicense"}
+authors = [{name = "tristandeb1"}]
+requires-python = ">=3.8"
+dependencies = ["importlib_resources>=5 ; python_version<'3.9'"]
+
+[project.optional-dependencies]
+dev = [
+    "mpi4py>=3.1"
+]
+
+[project.scripts]
+mpypocscript = "mpypoc.__main__:cli"
+
+[project.urls]
+Source = "https://github.com/tristandeb1/mpypoc"
+
+[tool.scikit-build]
+sdist.include = [
+    "src",
+    "python",
+    "CMakeLists.txt",
+    "README.md",
+    "LICENSE",
+    "MANIFEST.in",
+    "pyproject.toml"
+]
+wheel.license-files = ["LICENSE"]
+wheel.packages = ["python/mpypoc"]
+wheel.expand-macos-universal-tags = true
+build-dir = "build/{wheel_tag}"
+cmake.version = ">=3.21"
+cmake.define.CMAKE_CXX_STANDARD = "17"
+cmake.define.CMAKE_POSITION_INDEPENDENT_CODE = "ON"
