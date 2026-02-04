@@ -3,7 +3,6 @@ requires = [
     "scikit-build-core>=0.9",
     "cmake>=3.26",
     "ninja>=1.10",
-    "setuptools>=68",
     "wheel"
 ]
 build-backend = "scikit_build_core.build"
@@ -20,9 +19,7 @@ requires-python = ">=3.8"
 dependencies = ["importlib_resources>=5 ; python_version<'3.9'"]
 
 [project.optional-dependencies]
-dev = [
-    "mpi4py>=3.1"
-]
+dev = ["mpi4py>=3.1"]
 
 [project.scripts]
 mpypocscript = "mpypoc.__main__:cli"
@@ -31,18 +28,7 @@ mpypocscript = "mpypoc.__main__:cli"
 Source = "https://github.com/tristandeb1/mpypoc"
 
 [tool.scikit-build]
-sdist.include = [
-    "src",
-    "python",
-    "CMakeLists.txt",
-    "README.md",
-    "LICENSE",
-    "MANIFEST.in",
-    "pyproject.toml"
-]
+sdist.exclude = [".*"]
 wheel.packages = ["python/mpypoc"]
-wheel.expand-macos-universal-tags = true
-build-dir = "build/{wheel_tag}"
-cmake.version = ">=3.21"
-cmake.define.CMAKE_CXX_STANDARD = "17"
-cmake.define.CMAKE_POSITION_INDEPENDENT_CODE = "ON"
+wheel.py-api = "py3"
+cmake.version = "CMakeLists.txt"

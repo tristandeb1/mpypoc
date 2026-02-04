@@ -22,6 +22,7 @@ endif()
 find_package(MPI REQUIRED COMPONENTS CXX)
 
 add_executable(mpypoc src/mpypoc.cpp)
+set_target_properties(mpypoc PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 target_compile_features(mpypoc PRIVATE cxx_std_17)
 target_link_libraries(mpypoc PRIVATE MPI::MPI_CXX)
 

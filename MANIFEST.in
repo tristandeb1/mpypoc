@@ -1,6 +1,0 @@
-graft src
-graft python
-include CMakeLists.txt
-include README.md
-include LICENSE
-include pyproject.toml
