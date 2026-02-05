@@ -17,37 +17,8 @@ requires-python = ">=3.8"
 sdist.exclude = [".*"]
 wheel.py-api = "py3"
 cmake.version = "CMakeLists.txt"
+cmake.define.OPENMPI_VERSION = "5.0.9"
 
 [tool.cibuildwheel]
 build = "cp39*"
 skip = "*musllinux*"
-linux.before-all = '''
-    # Set this to the desired OpenMPI version
-    OPENMPI_VERSION=5.0.9
-    # ----------- end of settings -----------
-
-    OPENMPI_SHORT_VERSION=$(echo $OPENMPI_VERSION | cut -d. -f-2)
-    OPENMPI_PREFIX=/opt/openmpi
-
-    # Fetch OpenMPI sources
-    mkdir -p /tmp/openmpi-build
-    cd /tmp/openmpi-build
-    curl -LO https://download.open-mpi.org/release/open-mpi/v$OPENMPI_SHORT_VERSION/openmpi-$OPENMPI_VERSION.tar.bz2
-    tar xf openmpi-$OPENMPI_VERSION.tar.bz2
-    cd openmpi-$OPENMPI_VERSION
-
-    # Build & install
-    ./configure --prefix=$OPENMPI_PREFIX
-    make -j$(nproc)
-    make install
-    echo "$OPENMPI_PREFIX/lib" > /etc/ld.so.conf.d/openmpi.conf
-    echo "$OPENMPI_PREFIX/lib/openmpi" >> /etc/ld.so.conf.d/openmpi.conf
-    echo "$OPENMPI_PREFIX/lib/openmpi/libfabric" >> /etc/ld.so.conf.d/openmpi.conf
-    echo "$OPENMPI_PREFIX/lib/openmpi/ucx" >> /etc/ld.so.conf.d/openmpi.conf
-    ldconfig
-'''
-linux.environment.OPENMPI_PREFIX = "/opt/openmpi"
-linux.environment.PATH="$OPENMPI_PREFIX/bin:$PATH"
-linux.environment.PKG_CONFIG_PATH="$OPENMPI_PREFIX/lib/pkgconfig"
-linux.environment.CMAKE_PREFIX_PATH="$OPENMPI_PREFIX"
-linux.environment.CMAKE_ARGS="-DMPI_C_COMPILER=$OPENMPI_PREFIX/bin/mpicc -DMPI_CXX_COMPILER=$OPENMPI_PREFIX/bin/mpicxx -DMPIEXEC_EXECUTABLE=$OPENMPI_PREFIX/bin/mpiexec -DOPENMPI_PREFIX=$OPENMPI_PREFIX"

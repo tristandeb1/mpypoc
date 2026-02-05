@@ -5,19 +5,11 @@ project(mpypoc
     DESCRIPTION "Minimal C++ MPI program packaged for Python"
     LANGUAGES CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 include(GNUInstallDirs)
 
-if(NOT DEFINED SKBUILD_PROJECT_NAME)
-    set(SKBUILD_PROJECT_NAME "${PROJECT_NAME}")
-endif()
-
-if(DEFINED SKBUILD)
-    set(_pkg_bin_dir "${SKBUILD_PROJECT_NAME}/bin")
-    set(_pkg_lib_dir "${SKBUILD_PROJECT_NAME}/lib")
-else()
-    set(_pkg_bin_dir "${CMAKE_INSTALL_BINDIR}")
-    set(_pkg_lib_dir "${CMAKE_INSTALL_LIBDIR}")
-endif()
+include(openmpi)
 
 find_package(MPI REQUIRED COMPONENTS CXX)
 
@@ -34,6 +26,19 @@ if(MSVC)
 else()
     target_compile_options(mpypoc PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+if(NOT DEFINED SKBUILD_PROJECT_NAME)
+    set(SKBUILD_PROJECT_NAME "${PROJECT_NAME}")
+endif()
+
+if(DEFINED SKBUILD)
+    set(_pkg_bin_dir "${SKBUILD_PROJECT_NAME}/bin")
+    set(_pkg_lib_dir "${SKBUILD_PROJECT_NAME}/lib")
+else()
+    set(_pkg_bin_dir "${CMAKE_INSTALL_BINDIR}")
+    set(_pkg_lib_dir "${CMAKE_INSTALL_LIBDIR}")
+endif()
+
 
 install(TARGETS mpypoc
         RUNTIME DESTINATION ${_pkg_bin_dir}
