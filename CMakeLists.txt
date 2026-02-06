@@ -9,15 +9,10 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(GNUInstallDirs)
 
-include(openmpi)
-
 find_package(MPI REQUIRED COMPONENTS CXX)
 
 add_executable(mpypoc src/mpypoc.cpp)
 set_target_properties(mpypoc PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-if(UNIX AND NOT APPLE)
-    set_target_properties(mpypoc PROPERTIES INSTALL_RPATH "\$ORIGIN/../lib")
-endif()
 target_compile_features(mpypoc PRIVATE cxx_std_17)
 target_link_libraries(mpypoc PRIVATE MPI::MPI_CXX)
 
@@ -39,8 +34,4 @@ else()
     set(_pkg_lib_dir "${CMAKE_INSTALL_LIBDIR}")
 endif()
 
-
-install(TARGETS mpypoc
-        RUNTIME DESTINATION ${_pkg_bin_dir}
-        LIBRARY DESTINATION ${_pkg_lib_dir}
-        ARCHIVE DESTINATION ${_pkg_lib_dir})
+install(TARGETS mpypoc RUNTIME DESTINATION ${_pkg_bin_dir})
