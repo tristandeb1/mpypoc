@@ -1,5 +1,5 @@
-/.venv/
-/venv/
-/build/
-/dist/
-/wheelhouse/
+.venv/
+venv/
+build/
+dist/
+wheelhouse/

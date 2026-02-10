@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build-core"]
+requires = ["scikit-build-core", "impi-devel"]
 build-backend = "scikit_build_core.build"
 
 [project]
@@ -11,14 +11,15 @@ license = "Unlicense"
 license-files = ["LICENSE"]
 authors = [{name = "tristandeb1"}]
 urls.source = "https://github.com/tristandeb1/mpypoc"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
+dependencies = ["impi-rt"]
 
 [tool.scikit-build]
 sdist.exclude = [".*"]
 wheel.py-api = "py3"
 cmake.version = "CMakeLists.txt"
-cmake.define.OPENMPI_VERSION = "5.0.9"
 
 [tool.cibuildwheel]
 build = "cp39*"
 skip = "*musllinux*"
+repair-wheel-command = ""

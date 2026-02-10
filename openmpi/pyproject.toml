@@ -1,0 +1,25 @@
+[build-system]
+requires = ["scikit-build-core", "openmpi"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "mpypoc"
+version = "0.1.0"
+description = "Minimal C++ MPI program packaged for Python using CMake & scikit-build-core."
+readme = "README.md"
+license = "Unlicense"
+license-files = ["LICENSE"]
+authors = [{name = "tristandeb1"}]
+urls.source = "https://github.com/tristandeb1/mpypoc"
+requires-python = ">=3.9"
+dependencies = ["openmpi"]
+
+[tool.scikit-build]
+sdist.exclude = [".*"]
+wheel.py-api = "py3"
+cmake.version = "CMakeLists.txt"
+
+[tool.cibuildwheel]
+build = "cp39*"
+skip = "*musllinux*"
+repair-wheel-command = ""
